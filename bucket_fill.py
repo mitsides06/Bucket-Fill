@@ -101,18 +101,153 @@ def fill(image, seed_point):
                1 represents a boundary pixel, and
                2 represents a filled pixel
     """
+    if not is_seed_point_valid(image, seed_point):
+        return image
+    
+    row_index = seed_point[0]
+    col_index = seed_point[1]
+    
+    image[row_index][col_index] = 2
+    if is_left_boundary(image, seed_point) and is_right_boundary(image, seed_point) and is_up_boundary(image, seed_point) and is_down_boundary(image, seed_point):
+        return image
+    if not is_left_boundary(image, seed_point):
+        new_position = (row_index, col_index-1)
+        image = fill(image, new_position)
+    if not is_right_boundary(image, seed_point):
+        new_position = (row_index, col_index+1)
+        image = fill(image, new_position)
+    if not is_up_boundary(image, seed_point):
+        new_position = (row_index-1, col_index)
+        image = fill(image, new_position)
+    if not is_down_boundary(image, seed_point):
+        new_position = (row_index+1, col_index)
+        image = fill(image, new_position)
 
-    # TODO: Complete this function
-    return []
+    return image
+
+def is_seed_point_valid(image, seed_point):
+    """ Checks if the seed_point input is valid
+
+    Args:
+        image (list) : a 2D nested list representation of an image, where
+                       0 represents an unfilled pixel, and
+                       1 represents a boundary pixel
+        seed_point (tuple) : a 2-element tuple representing the (row, col) 
+                       coordinates of the seed point to start filling
+
+    Returns:
+        Bool : True or False                
+    """
+    row_dim = len(image)
+    col_dim = len(image[0])
+    row_index = seed_point[0]
+    col_index = seed_point[1]
+    
+    return (type(row_index) == type(col_index) == int) and (0 <= row_index <= row_dim-1) and (0 <= col_index <= col_dim-1) and image[row_index][col_index] == 0
+    
+
+def is_left_boundary(image, current_pixel):
+    """ Checks if the pixel to the left of the current pixel position is a boundary
+
+    Args:
+        image (list) : a 2D nested list representation of an image, where
+                       0 represents an unfilled pixel, and
+                       1 represents a boundary pixel
+        current_pixel (tuple) : a 2-element tuple representing the (row, col)
+                        cooredinates of the current pixel
+    
+    Returns:
+        Bool : True or False
+    """
+    row_index = current_pixel[0]
+    col_index = current_pixel[1]
+    if col_index == 0:
+        return True
+    if image[row_index][col_index-1] in [1, 2]:
+        return True
+    return False
+
+def is_right_boundary(image, current_pixel):
+    """ Checks if the pixel to the right of the current pixel position is a boundary
+
+    Args:
+        image (list) : a 2D nested list representation of an image, where
+                       0 represents an unfilled pixel, and
+                       1 represents a boundary pixel
+        current_pixel (tuple) : a 2-element tuple representing the (row, col)
+                        cooredinates of the current pixel
+    
+    Returns:
+        Bool : True or False
+    """
+
+    col_dim = len(image[0])
+    row_index = current_pixel[0]
+    col_index = current_pixel[1]
+    if col_index == col_dim - 1:
+        return True
+    if image[row_index][col_index+1] in [1, 2]:
+        return True
+    return False
+
+def is_up_boundary(image, current_pixel):
+    """ Checks if the pixel above the current pixel position is a boundary
+
+    Args:
+        image (list) : a 2D nested list representation of an image, where
+                       0 represents an unfilled pixel, and
+                       1 represents a boundary pixel
+        current_pixel (tuple) : a 2-element tuple representing the (row, col)
+                        cooredinates of the current pixel
+    
+    Returns:
+        Bool : True or False
+    """
+    row_index = current_pixel[0]
+    col_index = current_pixel[1]
+    if row_index == 0:
+        return True
+    if image[row_index-1][col_index] in [1, 2]:
+        return True
+    return False
+
+def is_down_boundary(image, current_pixel):
+    """ Checks if the pixel below the current pixel position is a boundary
+
+    Args:
+        image (list) : a 2D nested list representation of an image, where
+                       0 represents an unfilled pixel, and
+                       1 represents a boundary pixel
+        current_pixel (tuple) : a 2-element tuple representing the (row, col)
+                        cooredinates of the current pixel
+    
+    Returns:
+        Bool : True or False
+    """
+    row_dim = len(image)
+    row_index = current_pixel[0]
+    col_index = current_pixel[1]
+    if row_index == row_dim - 1:
+        return True
+    if image[row_index+1][col_index] in [1, 2]:
+        return True
+    return False
+
+
+
+
+
+    
+
 
 
 def example_fill():
-    image = load_image("data/bar.txt")
+    image = load_image("data/smiley.txt")
 
     print("Before filling:")
     show_image(image)
 
-    image = fill(image=image, seed_point=(7, 3))
+    image = fill(image=image, seed_point=(1, 3))
 
     print("-" * 25)
     print("After filling:")
