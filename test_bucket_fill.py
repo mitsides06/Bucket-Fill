@@ -4,16 +4,16 @@ def test_pattern():
     small_sized = load_image("data/1x1.txt")
     mid_sized = load_image("data/7x15.txt")
     large_sized = load_image("data/25x25.txt")
+    print()
 
-    #check seed_points outside image
-    print()
-    print("Tests if the function fill() returns input image if the seed_point inputs are outside the image.\nWe execpt the function to return the input image in all four tests below!")
-    print()
+    # Check seed_points outside image.
+    print("Tests if the function fill() returns input image if the seed_point inputs are outside "\
+           "the image.\nWe execpt the function to return the input image in all four tests below!\n")
     print("Before filling: ")
     show_image(mid_sized)
     print("-" * 25)
     print("After filling:")
-    image_left = fill(image=mid_sized, seed_point=(2, -1))
+    image_left = fill(image=mid_sized, seed_point=(2, -1))  # seed_point is outside the image to the left, same idea follows below
     assert image_left == mid_sized
     image_right = fill(image=mid_sized, seed_point=(2, 15))
     assert image_right == mid_sized
@@ -31,36 +31,42 @@ def test_pattern():
     print()
     print("Well done! All outside-image tests passed!")
     print()
+
     #check seed_points on boundaries
-    print("Tests if the function fill() returns the input image when the seed_point is on a boundary.\nWe exepct our function to return the input image!")
+    print("Tests if the function fill() returns the input image when the seed_point "\
+           "is on a boundary.\nWe exepct our function to return the input image!")
     print()
     print("Before filling: ")
     show_image(mid_sized)
     print("-" * 25)
     print("After filling:") 
-    image_boundary = fill(image=mid_sized, seed_point=(1, 5))
+    image_boundary = fill(image=mid_sized, seed_point=(1, 5))  #seed_point positioned on a boundary   
     assert image_boundary == mid_sized
     show_image(image_boundary)
     print()
     print("Well done! Boundary test passed!\n")
+
     #check non-integer inputs
-    print("Tests if the function fill() returns the input image when the seed_point does not contain only integers.\nWe expect our function to return the input image in the two tests below!")
+    print("Tests if the function fill() returns the input image when the seed_point does not contain "\
+           "only integers.\nWe expect our function to return the input image in the two tests below!")
     print()
     print("Before filling: ")
     show_image(mid_sized)
     print("-" * 25)
     print("After filling:")
-    image_int_1 = fill(image=mid_sized, seed_point=(3, 4.54))
+    image_int_1 = fill(image=mid_sized, seed_point=(3, 4.54))  # float column coordinate
     assert image_int_1 == mid_sized
-    image_int_2 = fill(image=mid_sized, seed_point=(2, 'HEY'))
+    image_int_2 = fill(image=mid_sized, seed_point=(2, 'HEY'))  # string column coordinate
     assert image_int_2 == mid_sized
     show_image(image_int_1)
     print()
     show_image(image_int_2)
     print()
     print("Well done! All non-integer tests passed!\n")
-    #check small-sized image
-    print("Tests if the function fill() fills in an image of size 1x1 with no boundary.\nWe expect the function to return a coloured 1x1 image!\n")
+
+    #check if function fills in correctly a small-sized image
+    print("Tests if the function fill() fills in an image of size 1x1 with no "\
+          "boundary.\nWe expect the function to return a coloured 1x1 image!\n")
     print("Before filling:\n")
     show_image(small_sized)
     print("-" * 25)
@@ -71,8 +77,10 @@ def test_pattern():
     show_image(image_coloured)
     print()
     print("Well done! 1x1 test passed!\n")
-    #check mid-sized image
-    print("Tests if the function fill() returns the correct image when a valid seed_point is input on a mid-sized image\n")
+
+    #check if function fills in correctly a mid-sized image
+    print("Tests if the function fill() returns the correct image when "\
+           "a valid seed_point is input on a mid-sized image\n")
     print("Before filling: ")
     show_image(mid_sized)
     print("-" * 25)
@@ -83,8 +91,10 @@ def test_pattern():
     show_image(image_mid_correct)
     print()
     print("Well done! The mid_sized correct test passed!\n")
-    #check large-sized image (25x25)
-    print("Tests if the function fill() returns the correct image when a valid seed_point is input on a large-sized (25x25) image\n")
+
+    #check if function fills in correctly a large-sized image (25x25)
+    print("Tests if the function fill() returns the correct image when "\
+           "a valid seed_point is input on a large-sized (25x25) image\n")
     print("Before filling: ")
     show_image(large_sized)
     print("-" * 25)

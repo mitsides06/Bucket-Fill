@@ -107,9 +107,15 @@ def fill(image, seed_point):
     row_index = seed_point[0]
     col_index = seed_point[1]
     
-    image[row_index][col_index] = 2
-    if is_left_boundary(image, seed_point) and is_right_boundary(image, seed_point) and is_up_boundary(image, seed_point) and is_down_boundary(image, seed_point):
+    image[row_index][col_index] = 2      # Fill in the pixel.
+
+    # Check if the current position is surrounded by boundaries or filled pixels.
+    if is_left_boundary(image, seed_point) and is_right_boundary(image, seed_point) and\
+         is_up_boundary(image, seed_point) and is_down_boundary(image, seed_point):
         return image
+    
+    # Call the fill fuction to each of the surrounding positions which are boundary-free and empty
+    # to update the image by filling in the appropriate pixels.
     if not is_left_boundary(image, seed_point):
         new_position = (row_index, col_index-1)
         image = fill(image, new_position)
@@ -142,12 +148,16 @@ def is_seed_point_valid(image, seed_point):
     col_dim = len(image[0])
     row_index = seed_point[0]
     col_index = seed_point[1]
-    
-    return (type(row_index) == type(col_index) == int) and (0 <= row_index <= row_dim-1) and (0 <= col_index <= col_dim-1) and image[row_index][col_index] == 0
+
+    # Check if the seed_point input consists only of integers, if it's positioned within the image,
+    # and if it's positioned on a boundary-free pixel.
+    if (type(row_index) == type(col_index) == int):
+        return (0 <= row_index <= row_dim-1) and (0 <= col_index <= col_dim-1) and image[row_index][col_index] == 0
+    return False
     
 
 def is_left_boundary(image, current_pixel):
-    """ Checks if the pixel to the left of the current pixel position is a boundary
+    """ Checks if the pixel to the left of the current pixel position is a boundary or already filled
 
     Args:
         image (list) : a 2D nested list representation of an image, where
@@ -168,7 +178,7 @@ def is_left_boundary(image, current_pixel):
     return False
 
 def is_right_boundary(image, current_pixel):
-    """ Checks if the pixel to the right of the current pixel position is a boundary
+    """ Checks if the pixel to the right of the current pixel position is a boundary or already filled
 
     Args:
         image (list) : a 2D nested list representation of an image, where
@@ -191,7 +201,7 @@ def is_right_boundary(image, current_pixel):
     return False
 
 def is_up_boundary(image, current_pixel):
-    """ Checks if the pixel above the current pixel position is a boundary
+    """ Checks if the pixel above the current pixel position is a boundary or already filled
 
     Args:
         image (list) : a 2D nested list representation of an image, where
@@ -212,7 +222,7 @@ def is_up_boundary(image, current_pixel):
     return False
 
 def is_down_boundary(image, current_pixel):
-    """ Checks if the pixel below the current pixel position is a boundary
+    """ Checks if the pixel below the current pixel position is a boundary or already filled
 
     Args:
         image (list) : a 2D nested list representation of an image, where
