@@ -107,7 +107,7 @@ def fill(image, seed_point):
     row_index = seed_point[0]
     col_index = seed_point[1]
     
-    image[row_index][col_index] = 2      # Fill in the pixel.
+    image[row_index][col_index] = 2      # Fill in the pixel
 
     # Check if the current position is surrounded by boundaries or filled pixels.
     if is_left_boundary(image, seed_point) and is_right_boundary(image, seed_point) and\
@@ -132,7 +132,7 @@ def fill(image, seed_point):
     return image
 
 def is_seed_point_valid(image, seed_point):
-    """ Checks if the seed_point input is valid
+    """ Checks if the seed_point input is valid.
 
     Args:
         image (list) : a 2D nested list representation of an image, where
@@ -150,21 +150,22 @@ def is_seed_point_valid(image, seed_point):
     col_index = seed_point[1]
 
     # Check if the seed_point input consists only of integers, if it's positioned within the image,
-    # and if it's positioned on a boundary-free pixel.
+    # and if it's positioned on a boundary-free and empty pixel.
     if (type(row_index) == type(col_index) == int):
         return (0 <= row_index <= row_dim-1) and (0 <= col_index <= col_dim-1) and image[row_index][col_index] == 0
     return False
     
 
 def is_left_boundary(image, current_pixel):
-    """ Checks if the pixel to the left of the current pixel position is a boundary or already filled
+    """ Checks if the pixel to the left of the current pixel position is
+        a boundary or already filled or outside the image.
 
     Args:
         image (list) : a 2D nested list representation of an image, where
                        0 represents an unfilled pixel, and
                        1 represents a boundary pixel
         current_pixel (tuple) : a 2-element tuple representing the (row, col)
-                        cooredinates of the current pixel
+                        coordinates of the current pixel
     
     Returns:
         Bool : True or False
@@ -178,14 +179,15 @@ def is_left_boundary(image, current_pixel):
     return False
 
 def is_right_boundary(image, current_pixel):
-    """ Checks if the pixel to the right of the current pixel position is a boundary or already filled
+    """ Checks if the pixel to the right of the current pixel position is
+        a boundary or already filled or outside the image.
 
     Args:
         image (list) : a 2D nested list representation of an image, where
                        0 represents an unfilled pixel, and
                        1 represents a boundary pixel
         current_pixel (tuple) : a 2-element tuple representing the (row, col)
-                        cooredinates of the current pixel
+                        coordinates of the current pixel
     
     Returns:
         Bool : True or False
@@ -201,14 +203,15 @@ def is_right_boundary(image, current_pixel):
     return False
 
 def is_up_boundary(image, current_pixel):
-    """ Checks if the pixel above the current pixel position is a boundary or already filled
+    """ Checks if the pixel above the current pixel position is
+        a boundary or already filled or outside the image.
 
     Args:
         image (list) : a 2D nested list representation of an image, where
                        0 represents an unfilled pixel, and
                        1 represents a boundary pixel
         current_pixel (tuple) : a 2-element tuple representing the (row, col)
-                        cooredinates of the current pixel
+                        coordinates of the current pixel
     
     Returns:
         Bool : True or False
@@ -222,14 +225,15 @@ def is_up_boundary(image, current_pixel):
     return False
 
 def is_down_boundary(image, current_pixel):
-    """ Checks if the pixel below the current pixel position is a boundary or already filled
+    """ Checks if the pixel below the current pixel position is
+        a boundary or already filled or outside the image.
 
     Args:
         image (list) : a 2D nested list representation of an image, where
                        0 represents an unfilled pixel, and
                        1 represents a boundary pixel
         current_pixel (tuple) : a 2-element tuple representing the (row, col)
-                        cooredinates of the current pixel
+                        coordinates of the current pixel
     
     Returns:
         Bool : True or False
