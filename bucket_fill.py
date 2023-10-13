@@ -146,12 +146,13 @@ def is_seed_point_valid(image, seed_point):
     """
     row_dim = len(image)
     col_dim = len(image[0])
+    seed_point_size = len(seed_point)
     row_index = seed_point[0]
     col_index = seed_point[1]
 
-    # Check if the seed_point input consists only of integers, if it's positioned within the image,
+    # Check if the seed_point is a 2-tuple and its elemetns are integers, if it's positioned within the image,
     # and if it's positioned on a boundary-free and empty pixel.
-    if (type(row_index) == type(col_index) == int):
+    if seed_point_size == 2 and ((type(row_index) == type(col_index) == int)):
         return (0 <= row_index <= row_dim-1) and (0 <= col_index <= col_dim-1) and image[row_index][col_index] == 0
     return False
     
